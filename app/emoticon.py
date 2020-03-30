@@ -33,13 +33,15 @@ def crawl(db_dir, proxies, verify, timeout=30):
                         break
                 for component in components:
                     if 'se-image' in component['class']:
-                        channel_link = json.loads(component.select_one('a.se-module')['data-linkdata'])['link']
+                        channel_link = json.loads(component.select_one('a.se-module-image-link')['data-linkdata'])['link']
                         if channel_link.count('/') == 3 and 'pf.kakao.com' in channel_link and '_xdNWYM' not in channel_link: break
-                s.post('https://maker.ifttt.com/trigger/free_emoticon/with/key/ce8QM-IDoL98p4TIyf9wSU', data={'value1' : content, 'value2' : channel_link})
-                print(content.replace('<br>', '\n'))
+                content = content.replace('<br>', '\n')
+                util.postMessage(message=content, proxy=proxies['https'], icon=':raising_hand:', username='이모티콘 알리미')
+                print(content)
                 print('채널로 이동 : ' + channel_link)
                 print('+++++++++++++++++++++++++++++++++++++')
                 db.write(post_id + "\n")
                 count += 1
     if count == 0:
         print(f"추가 이모티콘 없음. {util.getDate()}")
+

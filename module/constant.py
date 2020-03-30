@@ -8,3 +8,6 @@ EMOTICON_DB = "post.db"
 
 EMOTICON_URL = "http://blog.naver.com/PostList.nhn?blogId=nova672&from=postList&categoryNo=32"
 EMOTICON_BLOG = "http://blog.naver.com"
+
+SLACK_TOKEN = "xoxp-990954904977-1002895578503-1010794103248-2251c8a637668160d9f5eb1173ab7ec4"
+SLACK_CHANNEL = "#alert"

@@ -21,9 +21,10 @@ sched = BlockingScheduler()
 warnings.simplefilter('ignore',InsecureRequestWarning)
 
 if app_name == 'emoticon': 
+    emoticon.crawl(db_dir=db, proxies=proxies, verify=False)
     sched.add_job(lambda: emoticon.crawl(db_dir=db, proxies=proxies, verify=False), 'interval', minutes=5)
 elif app_name == 'mask':
-    sched.add_job(lambda: mask.crawl(db_dir=db, proxies=proxies, verify=False), 'interval', seconds=1, max_instances=5)
+    sched.add_job(lambda: mask.crawl(db_dir=db, proxies=proxies, verify=False), 'interval', seconds=1, max_instances=10)
 else:
     exit(1)
 
