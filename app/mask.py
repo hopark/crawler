@@ -20,7 +20,7 @@ def crawl(db_dir, proxies, verify, timeout=30):
         site = bs(s.get(link).text, 'html.parser')
         available = site.select_one('div.not_goods') is None and site.select_one('strong.title_error') is None
         if available:
-          message = f"[구매하기]({link})\n{name}"
+          message = f"> <{link}|구매하기>\n*{util.getTime()}*\n{name}"
           util.postMessage(message=message, proxy=proxies['https'], icon=':mask:', username='마스크 알리미')
           s.post('https://maker.ifttt.com/trigger/free_emoticon/with/key/ce8QM-IDoL98p4TIyf9wSU', data={})
           count += 1

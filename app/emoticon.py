@@ -36,9 +36,9 @@ def crawl(db_dir, proxies, verify, timeout=30):
                         channel_link = json.loads(component.select_one('a.se-module-image-link')['data-linkdata'])['link']
                         if channel_link.count('/') == 3 and 'pf.kakao.com' in channel_link and '_xdNWYM' not in channel_link: break
                 content = content.replace('<br>', '\n')
-                util.postMessage(message=content, proxy=proxies['https'], icon=':raising_hand:', username='이모티콘 알리미')
-                print(content)
-                print('채널로 이동 : ' + channel_link)
+                message = f"> <{channel_link}|채널로 이동>\n*{util.getDate()}*\n{content}"
+                util.postMessage(message=message, proxy=proxies['https'], icon=':raising_hand:', username='이모티콘 알리미')
+                print(message)
                 print('+++++++++++++++++++++++++++++++++++++')
                 db.write(post_id + "\n")
                 count += 1
