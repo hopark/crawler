@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 from time import gmtime, strftime
+import slack
 import os
 
 from module.constant import *
@@ -27,3 +28,7 @@ def getDbDir(app):
   if app == "mask": return f"{db_dir}/{MASK_DB}"
   elif app == "emoticon": return f"{db_dir}/{EMOTICON_DB}"
   else: return None
+
+def postMessage(message, proxy, icon, username):
+  client = slack.WebClient(token=SLACK_TOKEN, proxy=proxy)
+  client.chat_postMessage(channel=SLACK_CHANNEL, text=message, icon_emoji=icon, mrkdwn=True, username=username)
