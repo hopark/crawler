@@ -9,6 +9,9 @@ from bs4 import BeautifulSoup as bs
 from urllib.parse import urlparse, parse_qs
 from apscheduler.schedulers.blocking import BlockingScheduler
 from time import gmtime, strftime
+import os
+
+DB_DIR = os.path.dirname(os.path.abspath(__file__)) + 'masks'
 
 sched = BlockingScheduler()
 proxyDict = { 
@@ -19,7 +22,7 @@ proxyDict = {
 warnings.simplefilter('ignore',InsecureRequestWarning)
 
 def getMask():
-  f = open('/home/changho/Github/scrape/mask/masks', 'r')
+  f = open(DB_DIR, 'r')
   count = 0
   with requests.Session() as s:
     for line in f:

@@ -9,9 +9,10 @@ from bs4 import BeautifulSoup as bs
 from urllib.parse import urlparse, parse_qs
 from apscheduler.schedulers.blocking import BlockingScheduler
 from time import strftime, gmtime
+import os
 
 sched = BlockingScheduler()
-DB_DIR = '/home/changho/Github/scrape/kakao/post'
+DB_DIR = os.path.dirname(os.path.abspath(__file__)) + 'post'
 proxyDict = { 
               "http"  : "http://10.112.1.184:8080/", 
               "https" : "http://10.112.1.184:8080/", 
