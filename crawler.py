@@ -5,7 +5,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from apscheduler.schedulers.blocking import BlockingScheduler
 import argparse
 
-from module import util, emoticon, mask
+from app import emoticon, mask
+from module import util
 
 parser = argparse.ArgumentParser(description='Crawler')
 parser.add_argument('app', help='App name', type=str.lower, choices=['emoticon', 'mask'])
@@ -20,7 +21,7 @@ sched = BlockingScheduler()
 warnings.simplefilter('ignore',InsecureRequestWarning)
 
 if app_name == 'emoticon': 
-    sched.add_job(lambda: emoticon.crawl(db=db, proxies=proxies, verify=False), 'interval', minutes=5)
+    sched.add_job(lambda: emoticon.crawl(db_dir=db, proxies=proxies, verify=False), 'interval', minutes=5)
 elif app_name == 'mask':
     sched.add_job(lambda: mask.crawl(db_dir=db, proxies=proxies, verify=False), 'interval', seconds=1, max_instances=5)
 else:

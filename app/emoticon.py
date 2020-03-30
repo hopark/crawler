@@ -5,7 +5,8 @@ import json
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urlparse, parse_qs
 
-import util 
+from module.constant import *
+from module import util
 
 def crawl(db_dir, proxies, verify, timeout=30):
     count = 0
@@ -15,12 +16,12 @@ def crawl(db_dir, proxies, verify, timeout=30):
         s.verify = verify
         s.timeout = timeout
 
-        blog = bs(s.get('http://blog.naver.com/PostList.nhn?blogId=nova672&from=postList&categoryNo=32').text, 'html.parser')
+        blog = bs(s.get(EMOTICON_URL).text, 'html.parser')
         posts = blog.select('div#PostThumbnailAlbumViewArea > ul.thumblist > li.item')
         with open(db_dir, 'a') as db:
             for post in posts: 
-                content = "[" + post.select_one('strong.title').text + "]<br>"
-                post_link = "http://blog.naver.com" + post.select_one("a.link")["href"]
+                content = f"[{post.select_one('strong.title').text}]<br>"
+                post_link = f'{EMOTICON_BLOG}{post.select_one("a.link")["href"]}'
                 post_id = parse_qs(urlparse(post_link).query)['logNo'][0]
                 if post_id in post_list: break
                 post_html = bs(s.get(post_link).text, 'html.parser')

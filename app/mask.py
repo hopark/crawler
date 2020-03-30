@@ -6,7 +6,7 @@ from requests.auth import HTTPBasicAuth
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urlparse, parse_qs
 
-import util
+from module import util
 
 def crawl(db_dir, proxies, verify, timeout=30):
   count = 0
