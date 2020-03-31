@@ -5,6 +5,7 @@ import slack
 import os
 
 from module.constant import *
+from module.slack_token import getSlackToken
 
 def getTime():
   return strftime('%Y-%m-%d %H:%M:%S', gmtime())
@@ -30,5 +31,6 @@ def getDbDir(app):
   else: return None
 
 def postMessage(message, proxy, icon, username):
-  client = slack.WebClient(token=SLACK_TOKEN, proxy=proxy)
+  token = getSlackToken()
+  client = slack.WebClient(token=token, proxy=proxy)
   client.chat_postMessage(channel=SLACK_CHANNEL, text=message, icon_emoji=icon, mrkdwn=True, username=username)
